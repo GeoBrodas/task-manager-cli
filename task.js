@@ -87,6 +87,58 @@ function deleteTask() {
   }
 }
 
+// mark task as completed by given *index*
+function completeTask() {
+  const index = args[3];
+
+  if (!!index) {
+    let array = [];
+
+    // read contents of task.txt and completed.txt
+
+    const fileContent = fs.readFileSync(CWD + 'task.txt').toString();
+
+    const completedTask = fs.readFileSync(CWD + 'completed.txt').toString();
+
+    array = fileContent.split('\n');
+
+    // remove any elements if it conteins an empty string
+
+    let filteredContent = array.filter((item) => {
+      return item !== '';
+    });
+
+    // pass the filtered array to the function to check if the index is valid
+
+    if (index > filteredContent.length || index < 0) {
+      console.log(`Invalid index ${index}, does not exist`);
+    } else {
+      // extract the task to be shifted to completed.txt
+      const removeTask = filteredContent.splice(index, 1);
+
+      //   update the new task.txt file with the removed task
+      const updatedTaskList = filteredContent.join('\n');
+
+      //   update the completed.txt file with the removed task
+      fs.writeFile(CWD + 'task.txt', updatedTaskList, (err) => {
+        if (err) throw err;
+      });
+
+      // write to complted.txt file
+      fs.writeFile(
+        CWD + 'completed.txt',
+        removeTask + '\n' + completedTask,
+        (err) => {
+          if (err) throw err;
+          console.log(`Completed Task of index ${index}`);
+        }
+      );
+    }
+  } else {
+    console.log('Missing index, please try again!');
+  }
+}
+
 // controls all the commands via switch case
 switch (args[2]) {
   case 'help':
@@ -99,6 +151,10 @@ switch (args[2]) {
 
   case 'del':
     deleteTask();
+    break;
+
+  case 'done':
+    completeTask();
     break;
 
   default:
