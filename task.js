@@ -4,7 +4,7 @@ const fs = require('fs');
 const args = process.argv;
 
 // current working directory
-const CWD = args[1].slice(0, -8);
+const CWD = args[1].slice(0, -7);
 
 // create file -> "task.txt" and "done.txt" if not present
 if (fs.existsSync(CWD + 'todo.txt') === false) {
@@ -16,6 +16,8 @@ if (fs.existsSync(CWD + 'done.txt') === false) {
   let createStream = fs.createWriteStream('done.txt');
   createStream.end();
 }
+
+// below are the following functions that will be executed when the user enters the command
 
 // usage message -> ./task help
 const showUsageDetails = () => {
@@ -30,3 +32,14 @@ const showUsageDetails = () => {
 
   console.log(UsageText);
 };
+
+// controls all the commands via switch case
+switch (args[2]) {
+  case 'help':
+    showUsageDetails();
+    break;
+
+  default:
+    showUsageDetails();
+    break;
+}
