@@ -139,6 +139,32 @@ function completeTask() {
   }
 }
 
+// list out tasks to do
+function listTasks() {
+  let array = [];
+
+  const fileContent = fs.readFileSync(CWD + 'task.txt').toString();
+
+  array = fileContent.split('\n');
+
+  // check for empty strings and filter out
+  let filteredArray = array.filter((item) => {
+    return item !== '';
+  });
+
+  // check if filteredArray is empty
+  if (filteredArray.length === 0) {
+    console.log('No tasks to do');
+  }
+
+  // map throught all tasks and display
+  console.log('Tasks to complete' + '\n');
+  filteredArray.map((item, index) => {
+    console.log(`${index} - ${item}`);
+  });
+  console.log('\n' + 'End');
+}
+
 // controls all the commands via switch case
 switch (args[2]) {
   case 'help':
@@ -155,6 +181,10 @@ switch (args[2]) {
 
   case 'done':
     completeTask();
+    break;
+
+  case 'ls':
+    listTasks();
     break;
 
   default:
