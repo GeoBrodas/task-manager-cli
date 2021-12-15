@@ -45,3 +45,8 @@ If you have any feedback, please reach out to us at
 
 [![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://georgey.codes/)
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/georgeyvb/)
+
+#### Note to evaluator:
+
+One of the tests were on adding multiple tasks, and there was nothing provided in the readme file nor in the video about this, so I was not able to come up with the fix for this! And I was not able to pass 4 tests, because the double quotes were getting entered into the next line, which is not getting matched with the expected results from the tests.
+Thankyou!
