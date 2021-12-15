@@ -16,6 +16,9 @@ npm install
 npm link
 ```
 
+- Next `cd` into the root folder of the project ( which contains all the files - readme.md, task.js, etc)
+- Run `task report` to initialise the package.
+- After this you can start using the CLI tool from anywhere in the command line. ( try `cd ~`)
 - Go ahead and start using the CLI tool by adding `task` before every command.
 
 ## Usage/Examples
