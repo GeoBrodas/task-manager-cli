@@ -165,6 +165,38 @@ function listTasks() {
   console.log('\n' + 'End');
 }
 
+// reports the numbers of completed tasks and todo tasks
+function report() {
+  let incompleteTasks = [];
+  let completedTasks = [];
+
+  // read contents of task.txt and completed.txt
+  const tasks = fs.readFileSync(CWD + 'task.txt').toString();
+  const completed = fs.readFileSync(CWD + 'completed.txt').toString();
+
+  incompleteTasks = tasks.split('\n');
+  completedTasks = completed.split('\n');
+
+  let filteredIncompleteTasks = incompleteTasks.filter((item) => {
+    return item !== '';
+  });
+
+  let filteredCompletedTasks = completedTasks.filter((item) => {
+    return item !== '';
+  });
+
+  // start report
+  console.log('Tasks to complete: ' + filteredIncompleteTasks.length);
+  filteredIncompleteTasks.map((task, index) => {
+    console.log(`${index + 1} - ${task}`);
+  });
+
+  console.log('\n' + 'Completed Tasks: ' + filteredCompletedTasks.length);
+  filteredCompletedTasks.map((task, index) => {
+    console.log(`${index + 1} - ${task}`);
+  });
+}
+
 // controls all the commands via switch case
 switch (args[2]) {
   case 'help':
@@ -185,6 +217,10 @@ switch (args[2]) {
 
   case 'ls':
     listTasks();
+    break;
+
+  case 'report':
+    report();
     break;
 
   default:
