@@ -21,8 +21,7 @@ if (fs.existsSync(CWD + 'completed.txt') === false) {
 
 // usage message -> ./task help
 function showUsageDetails() {
-  const UsageText = `
-    Usage :-
+  const UsageText = `Usage :-
     $ ./task add 2 hello world    # Add a new item with priority 2 and text "hello world" to the list
     $ ./task ls                   # Show incomplete priority list items sorted by priority in ascending order
     $ ./task del INDEX            # Delete the incomplete item with the given index
@@ -54,6 +53,7 @@ function addTask() {
       return item !== '';
     });
 
+    // sort array according to priority
     let sortedArray = filteredContent.sort((a, b) => {
       return a.split(' ')[0] - b.split(' ')[0];
     });
@@ -63,13 +63,10 @@ function addTask() {
     // append new data into task.txt
     fs.writeFile(CWD + 'task.txt', updatedContent, (err) => {
       if (err) throw err;
-      console.log(`Added Task: ${enteredTask} with priority - ${priority}`);
+      console.log(`Added Task: "${enteredTask}" with priority ${priority}`);
     });
   } else {
-    console.log('Missing task details, please try again!');
-    console.log(
-      "Make sure you have entered both the priority and task in the format- './task add 2 hello world'"
-    );
+    console.log('Error: Missing tasks string. Nothing added!');
   }
 }
 
@@ -91,7 +88,9 @@ function deleteTask() {
 
     // error handling to see if index is valid
     if (index > filteredArray.length || index <= 0) {
-      console.log(`Invalid index ${index}, please try again!`);
+      console.log(
+        `Error: task with index #${index} does not exist. Nothing deleted.`
+      );
     } else {
       filteredArray.splice(index - 1, 1);
 
@@ -100,11 +99,11 @@ function deleteTask() {
       fs.writeFile(CWD + 'task.txt', updatedContent, (err) => {
         if (err) throw err;
 
-        console.log(`Deleted Task of index ${index}`);
+        console.log(`Deleted task #${index}`);
       });
     }
   } else {
-    console.log('Missing index, please try again!');
+    console.log('Error: Missing NUMBER for deleting tasks.');
   }
 }
 
@@ -131,16 +130,18 @@ function completeTask() {
 
     // pass the filtered array to the function to check if the index is valid
 
-    if (index > filteredContent.length || index < 0) {
-      console.log(`Invalid index ${index}, does not exist`);
+    if (index > filteredContent.length || index <= 0) {
+      console.log(`Error: no incomplete item with index #${index} exists.`);
     } else {
       // extract the task to be shifted to completed.txt
-      const removeTask = filteredContent.splice(index, 1);
+      const removeTask = filteredContent.splice(index - 1, 1);
+      const [priority, ...task] = removeTask[0].split(' ');
+      const doneTask = task.join(' ');
 
-      //   update the new task.txt file with the removed task
+      // update the new task.txt file with the removed task
       const updatedTaskList = filteredContent.join('\n');
 
-      //   update the completed.txt file with the removed task
+      //   update the task.txt file with the removed task
       fs.writeFile(CWD + 'task.txt', updatedTaskList, (err) => {
         if (err) throw err;
       });
@@ -148,15 +149,15 @@ function completeTask() {
       // write to complted.txt file
       fs.writeFile(
         CWD + 'completed.txt',
-        removeTask + '\n' + completedTask,
+        completedTask + '\n' + doneTask,
         (err) => {
           if (err) throw err;
-          console.log(`Completed Task of index ${index}`);
+          console.log(`Marked item as done.`);
         }
       );
     }
   } else {
-    console.log('Missing index, please try again!');
+    console.log('Error: Missing NUMBER for marking tasks as done."');
   }
 }
 
@@ -175,15 +176,15 @@ function listTasks() {
 
   // check if filteredArray is empty
   if (filteredArray.length === 0) {
-    console.log('No tasks to do');
+    console.log('There are no pending tasks!');
   }
 
   // map throught all tasks and display
-  console.log('Tasks to complete' + '\n');
   filteredArray.map((item, index) => {
-    console.log(`${index} - ${item}`);
+    const [priority, ...task] = item.split(' ');
+    const taskDescription = task.join(' ');
+    console.log(`${index + 1}. ${taskDescription} [${priority}]`);
   });
-  console.log('\n' + 'End');
 }
 
 // reports the numbers of completed tasks and todo tasks
@@ -207,14 +208,16 @@ function report() {
   });
 
   // start report
-  console.log('Tasks to complete: ' + filteredIncompleteTasks.length);
+  console.log('Pending : ' + filteredIncompleteTasks.length);
   filteredIncompleteTasks.map((task, index) => {
-    console.log(`${index + 1} - ${task}`);
+    const [priority, ...taskDescription] = task.split(' ');
+    const description = taskDescription.join(' ');
+    console.log(`${index + 1}. ${description} [${priority}]`);
   });
 
-  console.log('\n' + 'Completed Tasks: ' + filteredCompletedTasks.length);
+  console.log('\n' + 'Completed : ' + filteredCompletedTasks.length);
   filteredCompletedTasks.map((task, index) => {
-    console.log(`${index + 1} - ${task}`);
+    console.log(`${index + 1}. ${task}`);
   });
 }
 
