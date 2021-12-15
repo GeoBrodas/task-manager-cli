@@ -35,20 +35,41 @@ function showUsageDetails() {
 
 // add a task to task.txt file
 function addTask() {
-  const enteredTask = args[3];
+  const priority = args[3];
+  const enteredTask = args[4];
 
-  if (!!enteredTask) {
+  let array = [];
+
+  // console.log(priority, enteredTask);
+
+  if (!!enteredTask && !!priority) {
     //   grab previous contents of task.txt
     const fileContent = fs.readFileSync(CWD + 'task.txt').toString();
 
-    // append new data into task.txt
-    fs.writeFile(CWD + 'task.txt', enteredTask + '\n' + fileContent, (err) => {
-      if (err) throw err;
+    array = fileContent.split('\n');
 
-      console.log(`Added Task: ${enteredTask} with priority - `);
+    array.push(`${priority} ${enteredTask}`);
+
+    let filteredContent = array.filter((item) => {
+      return item !== '';
+    });
+
+    let sortedArray = filteredContent.sort((a, b) => {
+      return a.split(' ')[0] - b.split(' ')[0];
+    });
+
+    const updatedContent = sortedArray.join('\n');
+
+    // append new data into task.txt
+    fs.writeFile(CWD + 'task.txt', updatedContent, (err) => {
+      if (err) throw err;
+      console.log(`Added Task: ${enteredTask} with priority - ${priority}`);
     });
   } else {
     console.log('Missing task details, please try again!');
+    console.log(
+      "Make sure you have entered both the priority and task in the format- './task add 2 hello world'"
+    );
   }
 }
 
@@ -69,10 +90,10 @@ function deleteTask() {
     });
 
     // error handling to see if index is valid
-    if (index > filteredArray.length || index < 0) {
+    if (index > filteredArray.length || index <= 0) {
       console.log(`Invalid index ${index}, please try again!`);
     } else {
-      filteredArray.splice(index, 1);
+      filteredArray.splice(index - 1, 1);
 
       const updatedContent = filteredArray.join('\n');
 
