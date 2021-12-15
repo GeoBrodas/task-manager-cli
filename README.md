@@ -6,7 +6,7 @@ Here's how to start using `taskify-gdc`!
 - Next install `taskify-gdc`
 
 ```bash
-npm i taskify-gdc
+npm install -g taskify-gdc
 ```
 
 That's pretty much it!
