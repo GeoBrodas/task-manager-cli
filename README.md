@@ -1,14 +1,40 @@
+### Message from Author (Georgey V B)
+
+Here's how to start using `taskify-gdc`!
+
+- Go ahead and make sure you have Node.js installed in your machine first.
+- Next install `taskify-gdc`
+
+```bash
+npm i taskify-gdc
+```
+
+That's pretty much it!
+
+## Feedback
+
+If you have any feedback, please reach out to us at
+
+- https://georgey.codes/feedback
+- geobro2310@gmail.com
+
+## 🔗 Links
+
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://georgey.codes/)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/georgeyvb/)
+
+## Usage/Examples
+
+```bash
+$ tasklify-gdc add 2 hello world    # Add a new item with priority 2 and text "hello world" to the list
+$ tasklify-gdc ls                   # Show incomplete priority list items sorted by priority in ascending order
+$ tasklify-gdc del INDEX            # Delete the incomplete item with the given index
+$ tasklify-gdc done INDEX           # Mark the incomplete item with the given index as complete
+$ tasklify-gdc help                 # Show usage
+$ tasklify-gdc report               # Statistics
+```
+
 # Global Digital Corps - Software Engineering Test Problem | Priority list
-
-Thanks for applying to the Global Digital Corps!
-
-In this step we want to see how you implement a command-line (CLI) program that lets you manage your tasks.
-
-The specification for this problem is written down as tests. Since we haven’t actually implemented anything, the tests are currently failing. You have to solve the problem by implementing the application and getting all the tests to pass.
-
-Here's how it should work when you're done:
-
-[![TASK-CLI](https://res.cloudinary.com/sv-co/image/upload/v1638058186/GDC/SE/Admission/gdc-home-page_b6s3go.png)](https://vimeo.com/648902045)
 
 ## Getting started
 
