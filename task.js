@@ -23,6 +23,8 @@ if (fs.existsSync(CWD + 'completed.txt') === false) {
 
 // usage message -> ./task help
 function showUsageDetails() {
+  // console.log(CWD);
+
   const UsageText = `Usage :-
     $ ./task add 2 hello world    # Add a new item with priority 2 and text "hello world" to the list
     $ ./task ls                   # Show incomplete priority list items sorted by priority in ascending order
