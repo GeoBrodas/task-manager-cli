@@ -4,6 +4,7 @@ Here's how to start using `Task - the Todo app for CLI`!
 
 - Go ahead and make sure you have Node.js installed in your machine first.
 - Extract the zip file
+- `cd` into the project folder
 - Install all dependencies
 
 ```bash
@@ -16,8 +17,7 @@ npm install
 npm link
 ```
 
-- Next `cd` into the root folder of the project ( which contains all the files - readme.md, task.js, etc)
-- Run `task report` to initialise the package.
+- Run `task report` to initialise the package (for the first time).
 - After this you can start using the CLI tool from anywhere in the command line. ( try `cd ~`)
 - Go ahead and start using the CLI tool by adding `task` before every command.
 
